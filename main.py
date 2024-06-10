@@ -48,7 +48,7 @@ class MinesweeperBoard:
             print(' '.join(row))
 
 
-# We execute the program, we can change the number of rows, columns, and mines
+# We execute the program, and we can select the number of rows, columns, and mines
 if __name__ == "__main__":
     rows = 5
     cols = 5

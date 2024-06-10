@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Third Commit">
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -125,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717809856086</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell.">
+      <option name="closed" value="true" />
+      <created>1718035861714</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718035861714</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,6 +151,7 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Second Commit" />
     <MESSAGE value="Third Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Third Commit" />
+    <MESSAGE value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
+    <option name="LAST_COMMIT_MESSAGE" value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
   </component>
 </project>
