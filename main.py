@@ -37,11 +37,24 @@ class MinesweeperBoard:
         ]
         count = 0
         for dr, dc in directions:
-            r, c = row + dr, col + dc
+            r = row + dr
+            c = col + dc
             if 0 <= r < self.row and 0 <= c < self.columns:
                 if self.board[r][c] == 'M':
                     count += 1
         return count
+
+    def reveal_cell(self, row, columns):
+
+
+        # Implement reveal logic
+        pass
+
+    def flag_cell(self, row, columns):
+
+
+        # Implement flag logic
+        pass
 
     def print_board(self):
         for row in self.board:

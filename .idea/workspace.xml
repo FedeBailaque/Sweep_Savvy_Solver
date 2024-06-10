@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell.">
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Testing to see if the git-tracker works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -133,7 +133,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718035861714</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="I edited the last comment">
+      <option name="closed" value="true" />
+      <created>1718036533164</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718036533164</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Testing to see if the git-tracker works">
+      <option name="closed" value="true" />
+      <created>1718036972260</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718036972260</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +168,8 @@
     <MESSAGE value="Second Commit" />
     <MESSAGE value="Third Commit" />
     <MESSAGE value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
+    <MESSAGE value="I edited the last comment" />
+    <MESSAGE value="Testing to see if the git-tracker works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing to see if the git-tracker works" />
   </component>
 </project>
