@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Testing to see if the git-tracker works">
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -28,21 +28,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {}
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/FedeBailaque/Sweep_Savvy_Solver.git",
-    "accountId": "f2bc8ac7-86c9-4fe7-8e0a-87c35c64e26a"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FedeBailaque/Sweep_Savvy_Solver.git&quot;,
+    &quot;accountId&quot;: &quot;f2bc8ac7-86c9-4fe7-8e0a-87c35c64e26a&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2hW6AqfEX6PyVdXPB41dJm0wEfg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -53,7 +53,7 @@
   "keyToString": {
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "Felix__branch.6/15/24"
   }
 }]]></component>
   <component name="RunManager">
@@ -149,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718036972260</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="I added the skeleton for the functions reveal_cell and flag_cell">
+      <option name="closed" value="true" />
+      <created>1718054735612</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718054735612</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,6 +178,7 @@
     <MESSAGE value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
     <MESSAGE value="I edited the last comment" />
     <MESSAGE value="Testing to see if the git-tracker works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing to see if the git-tracker works" />
+    <MESSAGE value="I added the skeleton for the functions reveal_cell and flag_cell" />
+    <option name="LAST_COMMIT_MESSAGE" value="I added the skeleton for the functions reveal_cell and flag_cell" />
   </component>
 </project>

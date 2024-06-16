@@ -1,5 +1,6 @@
 import random
 
+
 class MinesweeperBoard:
     def __init__(self, rows, columns, num_of_mines):
         self.rows = rows
@@ -58,9 +59,10 @@ class MinesweeperBoard:
         else:
             self.visible_board[rows][cols] = str(self.board[rows][cols])
             # Remove flags when revealing board 
-            self.flags.discard((rows, cols))  
-        # This is optional and only if we reach improvements stage, but we need to add some recursive function to do the reveal of everything around that is 0. 
-        # Skipped for now
+            self.flags.discard((rows, cols))
+            # This is optional and only if we reach improvements stage,
+        # but we need to add some recursive function to do the reveal
+        # of everything around that is 0 (Skipped for now)
         self.check_game_end()
 
     def flag_cell(self, rows, cols):
@@ -68,26 +70,26 @@ class MinesweeperBoard:
         if self.visible_board[rows][cols] == '#':
             self.visible_board[rows][cols] = 'F'
             self.flags.add((rows, cols))
-            
+
         # if the user would like to remove flag, replace the F with # again
         elif self.visible_board[rows][cols] == 'F':
             self.visible_board[rows][cols] = '#'
             self.flags.discard((rows, cols))
         self.check_game_end()
 
-    def print_board(self): # Prints the back-end, true board
+    def print_board(self):  # Prints the back-end, true board
         # Determine the width needed for the largest number
         col_width = len(str(max(self.rows, self.columns)))
 
         # Print column numbers with formatting
         header = " " * (col_width + 1) + " ".join(str(i + 1).rjust(col_width) for i in range(self.columns))
         print(header)
-        
+
         # Print rows with row numbers with formating
         for idx, row in enumerate(self.board):
             print(str(idx + 1).rjust(col_width) + " " + ' '.join(cell.rjust(col_width) for cell in row))
 
-    def print_visible_board(self): # Prints the board currently visible to the player
+    def print_visible_board(self):  # Prints the board currently visible to the player
         # Determine the width needed for the largest number
         col_width = len(str(max(self.rows, self.columns)))
 
@@ -100,8 +102,8 @@ class MinesweeperBoard:
             print(str(idx + 1).rjust(col_width) + " " + ' '.join(str(cell).rjust(col_width) for cell in row))
 
     def play(self):
-        print("\n")
-        print("Welcome to Sweep Savvy Solver - Player Edition.")
+        #print("\n")
+        # print("Welcome to Sweep Savvy Solver - Player Edition.")
         print("Good luck!\n")
 
         while not self.game_end:
@@ -109,6 +111,7 @@ class MinesweeperBoard:
             print("\n")
             print("Choose which cell to reveal next or place a flag.")
             try:
+                print("\n")
                 action = input("Would you like to place or remove a flag? (y/n): ").lower()
                 if action == 'y':
                     rows = int(input("Enter cell row to place flag: "))
@@ -152,18 +155,38 @@ class MinesweeperBoard:
 
         self.game_end = True
 
-
 # We execute the program. We can select the number of rows, columns, and mines
 if __name__ == "__main__":
-    rows = 20
-    cols = 20
-    num_mines = 5
-    board = MinesweeperBoard(rows, cols, num_mines)
+    rows = 10
+    cols = 10
+    num_mines = 25
 
-    board.print_board()
+    while True:
+        print("\nWelcome to Sweep Savvy Solver - Player Edition.")
+        print("1. User mode")
+        print("2. AI mode (not implemented yet)")
+        print("3. Quit")
 
-    #board.play()
-    
+        choice = input("Enter your choice: ").strip()
+
+        if choice == '1':
+            board = MinesweeperBoard(rows, cols, num_mines)
+            board.play()
+        elif choice == '2':
+            print("AI mode is not implemented yet.")
+            # Placeholder for AI mode implementation
+        elif choice == '3':
+            print("Quitting the game. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+    # board.print_board()
+
+    # board.print_menu()
+
+    # board.play()
+
     '''
     Create a loop that has 3-4 options:
 	1. User mode 
