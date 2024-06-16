@@ -66,7 +66,7 @@ class MinesweeperBoard:
         self.check_game_end()
 
     def flag_cell(self, rows, cols):
-        # user can only place a flag on an spot with a # 
+        # user can only place a flag on a spot with a #
         if self.visible_board[rows][cols] == '#':
             self.visible_board[rows][cols] = 'F'
             self.flags.add((rows, cols))
@@ -102,8 +102,6 @@ class MinesweeperBoard:
             print(str(idx + 1).rjust(col_width) + " " + ' '.join(str(cell).rjust(col_width) for cell in row))
 
     def play(self):
-        #print("\n")
-        # print("Welcome to Sweep Savvy Solver - Player Edition.")
         print("Good luck!\n")
 
         while not self.game_end:
@@ -155,6 +153,7 @@ class MinesweeperBoard:
 
         self.game_end = True
 
+
 # We execute the program. We can select the number of rows, columns, and mines
 if __name__ == "__main__":
     rows = 10
@@ -186,14 +185,3 @@ if __name__ == "__main__":
     # board.print_menu()
 
     # board.play()
-
-    '''
-    Create a loop that has 3-4 options:
-	1. User mode 
-	2. AI mode
-	3. Quit
-	
-	And we want to be able to have the user reselect these 3 options
-
-    *** Check F (Flag symbol) not being replaced with # again if user wants to remove the flag
-    '''
