@@ -1,5 +1,6 @@
 import random
-
+import heapq
+import time
 
 class MinesweeperBoard:
     def __init__(self, rows, columns, num_of_mines):
@@ -152,13 +153,66 @@ class MinesweeperBoard:
             print("\nYou have placed some flags incorrectly. Better luck next time!\n")
 
         self.game_end = True
+    def play_ai(self):
+
+        print("AI is playing...\n")
+        # start_row = random.randint(0, self.rows - 1)
+        # start_col = random.randint(0, self.columns - 1)
+
+        start_row = 0
+        start_col = 0
+
+        self.dfs(start_row, start_col)
+
+        # AI choses a row and col to start at.
+        # DFS will make a decision for what the ai will do next.  
+        #   Create valid checker, to make sure AI picks a valid coord
+        #   is_valid_cell()
+
+        # You run into a mine
+        # Or you run into a cell that has already been flagged
+        for rows in range(self.rows):
+            for cols in range(self.columns):
+                if not self.game_end:
+                    self.reveal_cell(rows, cols)
+                else:
+                    break
+            if self.game_end:
+                break
+
+        
+        print("AI has finished playing")
+        self.print_board()
+
+
+       # pass
+ #   def ai_play(self):
+ #       print("AI is playing...\n")
+#
+ #       # start_row = random.randint(0, self.rows - 1)
+ #       # start_col = random.randint(0, self.columns - 1)
+#
+ #       start_row = 0
+ #       start_col = 0
+#
+ #       self.dfs(start_row, start_col)
+#
+ #       print("Game over\n")
+ #       self.print_board()
+
+    def dfs(self, row, col):
+        if not self.is_valid_cell(row, col):
+            return
+    def is_valid_cell(self, row, col):
+        return 0 <= row < self.rows and 0 <= col < self.columns and self.visible_board[row][col] == '#'
+
 
 
 # We execute the program. We can select the number of rows, columns, and mines
 if __name__ == "__main__":
     rows = 10
     cols = 10
-    num_mines = 25
+    num_mines = 20
 
     while True:
         print("\nWelcome to Sweep Savvy Solver - Player Edition.")
@@ -172,8 +226,10 @@ if __name__ == "__main__":
             board = MinesweeperBoard(rows, cols, num_mines)
             board.play()
         elif choice == '2':
+            board = MinesweeperBoard(rows, cols, num_mines)
             print("AI mode is not implemented yet.")
             # Placeholder for AI mode implementation
+            board.play_ai()
         elif choice == '3':
             print("Quitting the game. Goodbye!")
             break
