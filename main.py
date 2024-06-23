@@ -2,6 +2,7 @@ import random
 import heapq
 import time
 
+
 class MinesweeperBoard:
     def __init__(self, rows, columns, num_of_mines):
         self.rows = rows
@@ -164,8 +165,8 @@ class MinesweeperBoard:
 
         self.dfs(start_row, start_col)
 
-        # AI choses a row and col to start at.
-        # DFS will make a decision for what the ai will do next.  
+        # AI chooses a row and col to start at.
+        # DFS will make a decision for what the AI will do next.
         #   Create valid checker, to make sure AI picks a valid coord
         #   is_valid_cell()
 
@@ -199,7 +200,6 @@ class MinesweeperBoard:
 #
  #       print("Game over\n")
  #       self.print_board()
-
     def dfs(self, row, col):
         if not self.is_valid_cell(row, col):
             return

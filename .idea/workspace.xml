@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Created a loop that has 3 options, those 3 options are to play the game in User mode, AI mode and Quit)">
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,13 +49,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Felix__branch.6/15/24"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Felix__branch6__16__24&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Sweep Savvy Solver" />
@@ -148,23 +149,7 @@
       <option name="project" value="LOCAL" />
       <updated>1718036972260</updated>
     </task>
-    <task id="LOCAL-00007" summary="I added the skeleton for the functions reveal_cell and flag_cell">
-      <option name="closed" value="true" />
-      <created>1718054735612</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1718054735612</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Created a loop that has 3 options, those 3 options are to play the game in User mode, AI mode and Quit)">
-      <option name="closed" value="true" />
-      <created>1718564480067</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1718564480067</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -185,8 +170,6 @@
     <MESSAGE value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
     <MESSAGE value="I edited the last comment" />
     <MESSAGE value="Testing to see if the git-tracker works" />
-    <MESSAGE value="I added the skeleton for the functions reveal_cell and flag_cell" />
-    <MESSAGE value="Created a loop that has 3 options, those 3 options are to play the game in User mode, AI mode and Quit)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a loop that has 3 options, those 3 options are to play the game in User mode, AI mode and Quit)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing to see if the git-tracker works" />
   </component>
 </project>
