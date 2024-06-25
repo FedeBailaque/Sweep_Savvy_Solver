@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="We set up the methods for play_ai and the dfs search, which have not been implemented yet." />
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Testing to see if the git-tracker works">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Felix_branch6_16_24" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,13 +49,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Felix__branch6__16__24&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Felix__Jun24"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Sweep Savvy Solver" />
@@ -146,15 +149,7 @@
       <option name="project" value="LOCAL" />
       <updated>1718036972260</updated>
     </task>
-    <task id="LOCAL-00007" summary="We set up the methods for play_ai and the dfs search, which have not been implemented yet.">
-      <option name="closed" value="true" />
-      <created>1719114498057</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1719114498057</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,7 +170,6 @@
     <MESSAGE value="Made a board which randomizes the locations of mines and safe spaces. This initially creates a board with all cells being '-' and then places the specified number of mines into the board. For each non-mine cell, it counts how many of its adjacent cells contain mines and then it stores the count in the corresponding cell." />
     <MESSAGE value="I edited the last comment" />
     <MESSAGE value="Testing to see if the git-tracker works" />
-    <MESSAGE value="We set up the methods for play_ai and the dfs search, which have not been implemented yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="We set up the methods for play_ai and the dfs search, which have not been implemented yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing to see if the git-tracker works" />
   </component>
 </project>
