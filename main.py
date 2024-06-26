@@ -1,9 +1,6 @@
 import random
 import heapq
 
-
-# import time
-
 # I changed the name from MinesweeperBoard to MinesweeperGame because it will makes more sense
 # and it goes in accordance with its function
 class MinesweeperGame:
