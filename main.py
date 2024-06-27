@@ -45,6 +45,8 @@ class MinesweeperGame:
     #     for _ in range(self.rows):
     #         self.visible_board.append(['#'] * self.columns)
 
+    # Calculates the adjacent mines for each cell on the board
+    # Puts the number on the cell
     def count_adjacent_mines(self):
         for r, c in self.mine_positions:
             for dr in range(-1, 2):
@@ -64,6 +66,7 @@ class MinesweeperGame:
         #             count += 1
         # return count
 
+    # For User mode 
     def reveal_cell(self, rows, columns):
         if self.board[rows][columns] == 'M':
             # self.game_end = True
@@ -81,6 +84,8 @@ class MinesweeperGame:
         # # of everything around that is 0 (Skipped for now)
         # self.check_game_end()
 
+    # Helper function for reveal_cell 
+    # Reveals cells until mines are encounter. 
     def _reveal_recursive(self, rows, columns):
         if not (0 <= rows < self.rows and 0 <= columns < self.columns) or self.revealed[rows][columns]:
             return
@@ -91,9 +96,12 @@ class MinesweeperGame:
                     if dr != 0 or dc != 0:
                         self._reveal_recursive(rows + dr, columns + dc)
 
+    # Toggles a flag on/off (user mode only)
     def place_flag(self, rows, columns):
         self.flags[rows][columns] = not self.flags[rows][columns]
 
+    # Returns true is all Non mine cells are revealed
+    # otherwise it's false
     def is_victory(self):
         for r in range(self.rows):
             for c in range(self.columns):
@@ -101,6 +109,10 @@ class MinesweeperGame:
                     return False
         return True
 
+    # (User mode only)
+    # Allows placement of the character F (represent a flag)
+    # User is allowed to removed a flag from a position
+    # When a flag is removed, the # symbol is put back
     def flag_cell(self, rows, cols):
         # user can only place a flag on a spot with a #
         if self.visible_board[rows][cols] == '#':
@@ -113,6 +125,7 @@ class MinesweeperGame:
             self.flags.discard((rows, cols))
         self.check_game_end()
 
+    # Prints the entire board (user mode only)
     def print_board(self):  # Prints the back-end, true board
         for r in range(self.rows):
             for c in range(self.columns):
@@ -134,6 +147,8 @@ class MinesweeperGame:
         # for idx, row in enumerate(self.board):
         #     print(str(idx + 1).rjust(col_width) + " " + ' '.join(cell.rjust(col_width) for cell in row))
 
+    # Places mines randomly on the board depending on the board size and number of mines inputed. 
+    # Updates the self.mine_positions attribute of the minesweeper class
     def generate_mines(self):
         while len(self.mine_positions) < self.num_of_mines:
             rows = random.randint(0, self.rows - 1)
@@ -142,6 +157,8 @@ class MinesweeperGame:
                 self.mine_positions.add((rows, columns))
                 self.board[rows][columns] = 'M'
 
+# AI class 
+# Initialize the AI mode as a reference to the minesweeper game class 
 
 class MinesweeperAI:
     def __init__(self, game):
@@ -150,26 +167,35 @@ class MinesweeperAI:
         self.explored = set()
         self.initialize_frontier()
 
+    # Priority Queue for cells to be explored.
+    # Starts at 0,0 
     def initialize_frontier(self):
         heapq.heappush(self.frontier, (self.heuristic(0,0), 0, 0))
 
+    # Returns a heurisitc value (i.e. the Number of adjacent mines)
+    # If its an M, returns infinity.
     def heuristic(self, rows, columns):
         return self.game.board[rows][columns] if self.game.board[rows][columns] != 'M' else float('inf')
 
-    ## We need to add the function for the AI to flag a mine
+    # Manages the AI move sequence
+    # Pops a cell from the frontier and reveals that cell
+    # If the cell is a mine the game ends and it expands the frontier by adding valid neighboring cells
     def make_move(self):
         while self.frontier:
             _, rows, columns = heapq.heappop(self.frontier)
             if (rows, columns) in self.explored:
                 continue
+
             self.explored.add((rows, columns))
             if not self.game.reveal_cell(rows,columns):
-                print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!")
-                return False
-            print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).")
+                print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
+                return False # When a mine is hit
+            
+            # The AI picked a cell and let the viewer know what it was
+            print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).\n")
             self.expand_frontier(rows,columns)
             return True
-        return False
+        return False 
 
     # def print_visible_board(self):  # Prints the board currently visible to the player
     #     # Determine the width needed for the largest number
@@ -183,6 +209,9 @@ class MinesweeperAI:
     #     for idx, row in enumerate(self.visible_board):
     #         print(str(idx + 1).rjust(col_width) + " " + ' '.join(str(cell).rjust(col_width) for cell in row))
 
+
+    # Adds valid neighboring cells to the frontier 
+    # if they have not been revealed or explored 
     def expand_frontier(self, rows, columns):
         for dr in range(-1,2):
             for dc in range(-1,2):
@@ -245,7 +274,7 @@ class MinesweeperAI:
         #     print("\nYou have placed some flags incorrectly. Better luck next time!\n")
         # self.game_end = True
 def main():
-    print("\nWelcome to Sweep Savvy Solver")
+    print("\nWelcome to Sweep Savvy Solver\n")
     while True:
         print("1. User mode")
         print("2. AI mode")
