@@ -1,7 +1,8 @@
 import random
 import heapq
+import time
 
-# Main class that starts the initializes the game
+# Main class that starts and initializes the game
 class MinesweeperGame:
     def __init__(self, rows=10, columns=10, num_of_mines=45):
         self.rows = rows
@@ -14,9 +15,6 @@ class MinesweeperGame:
         self.generate_mines()
         self.count_adjacent_mines()
 
-
-
-
     # Calculates the adjacent mines for each cell on the board
     # Puts the number on the cell
     def count_adjacent_mines(self):
@@ -27,18 +25,15 @@ class MinesweeperGame:
                     if 0 <= nr < self.rows and 0 <= nc < self.columns and self.board[nr][nc] != 'M':
                         self.board[nr][nc] += 1
 
-
     # For User mode 
     def reveal_cell(self, rows, columns):
         if self.board[rows][columns] == 'M':
-            # self.game_end = True
             return False
-            # self.visible_board[rows][cols] = 'M'
         self._reveal_recursive(rows, columns)
         return True
 
     # Helper function for reveal_cell 
-    # Reveals cells until mines are encounter. 
+    # Reveals cells until mines are encountered. 
     def _reveal_recursive(self, rows, columns):
         if not (0 <= rows < self.rows and 0 <= columns < self.columns) or self.revealed[rows][columns]:
             return
@@ -53,7 +48,7 @@ class MinesweeperGame:
     def place_flag(self, rows, columns):
         self.flags[rows][columns] = not self.flags[rows][columns]
 
-    # Returns true is all Non mine cells are revealed
+    # Returns true if all non-mine cells are revealed
     # otherwise it's false
     def is_victory(self):
         for r in range(self.rows):
@@ -61,22 +56,6 @@ class MinesweeperGame:
                 if self.board[r][c] != 'M' and not self.revealed[r][c]:
                     return False
         return True
-
-    # (User mode only)
-    # Allows placement of the character F (represent a flag)
-    # User is allowed to removed a flag from a position
-    # When a flag is removed, the # symbol is put back
-    def flag_cell(self, rows, cols):
-        # user can only place a flag on a spot with a #
-        if self.visible_board[rows][cols] == '#':
-            self.visible_board[rows][cols] = 'F'
-            self.flags.add((rows, cols))
-
-        # if the user would like to remove flag, replace the F with # again
-        elif self.visible_board[rows][cols] == 'F':
-            self.visible_board[rows][cols] = '#'
-            self.flags.discard((rows, cols))
-        self.check_game_end()
 
     # Prints the entire board (user mode only)
     def print_board(self):  # Prints the back-end, true board
@@ -90,7 +69,7 @@ class MinesweeperGame:
                     print("#", end=" ")
             print()
  
-    # Places mines randomly on the board depending on the board size and number of mines inputed. 
+    # Places mines randomly on the board depending on the board size and number of mines inputted. 
     # Updates the self.mine_positions attribute of the minesweeper class
     def generate_mines(self):
         while len(self.mine_positions) < self.num_of_mines:
@@ -100,23 +79,44 @@ class MinesweeperGame:
                 self.mine_positions.add((rows, columns))
                 self.board[rows][columns] = 'M'
 
+# Class to hold AI and User statistics
+class Statistics:
+    def __init__(self):
+        self.ai_wins = 0
+        self.ai_losses = 0
+        self.user_wins = 0 
+        self.user_losses = 0
+
+    def record_win_user(self):
+        self.user_wins += 1
+        
+    def record_loss_user(self):
+        self.user_losses += 1
+        
+    def record_win_ai(self):
+        self.ai_wins += 1
+
+    def record_loss_ai(self):
+        self.ai_losses += 1
+
 # AI class 
 # Initialize the AI mode as a reference to the minesweeper game class 
-
 class MinesweeperAI:
-    def __init__(self, game):
+    def __init__(self, game, stats):
         self.game = game
+        self.stats = stats
         self.frontier = []
         self.explored = set()
+        self.ai_moves_made = 0  # Counter for AI moves
         self.initialize_frontier()
 
     # Priority Queue for cells to be explored.
     # Starts at 0,0 
     def initialize_frontier(self):
-        heapq.heappush(self.frontier, (self.heuristic(0,0), 0, 0))
+        heapq.heappush(self.frontier, (self.heuristic(0, 0), 0, 0))
 
-    # Returns a heurisitc value (i.e. the Number of adjacent mines)
-    # If its an M, returns infinity.
+    # Returns a heuristic value (i.e. the Number of adjacent mines)
+    # If it's an M, returns infinity.
     def heuristic(self, rows, columns):
         return self.game.board[rows][columns] if self.game.board[rows][columns] != 'M' else float('inf')
 
@@ -130,30 +130,36 @@ class MinesweeperAI:
                 continue
 
             self.explored.add((rows, columns))
-            if not self.game.reveal_cell(rows,columns):
+            self.ai_moves_made += 1
+            if not self.game.reveal_cell(rows, columns):
                 print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
-                return False # When a mine is hit
+                return False  # When a mine is hit
             
             # The AI picked a cell and let the viewer know what it was
             print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).\n")
-            self.expand_frontier(rows,columns)
+            self.expand_frontier(rows, columns)
+            
+            # Controls the delay for searching (printing out next step)
+            time.sleep(2) # Delay is set to 2 seconds
             return True
         return False 
-
-  
 
     # Adds valid neighboring cells to the frontier 
     # if they have not been revealed or explored 
     def expand_frontier(self, rows, columns):
-        for dr in range(-1,2):
-            for dc in range(-1,2):
+        for dr in range(-1, 2):
+            for dc in range(-1, 2):
                 nr, nc = rows + dr, columns + dc
                 if 0 <= nr < self.game.rows and 0 <= nc < self.game.columns and (nr, nc) not in self.explored and not self.game.revealed[nr][nc]:
                     heapq.heappush(self.frontier, (self.heuristic(nr, nc), nr, nc))
 
 def main():
+    stats = Statistics()
     print("\nWelcome to Sweep Savvy Solver\n")
     while True:
+        print()
+        print(f"User Wins: {stats.user_wins}, User Losses: {stats.user_losses}\n")
+        print(f"AI Wins: {stats.ai_wins}, AI Losses: {stats.ai_losses}\n")
         print("1. User mode")
         print("2. AI mode")
         print("3. Quit")
@@ -161,16 +167,16 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            user_mode()
+            user_mode(stats)
         elif choice == '2':
-            ai_mode()
+            ai_mode(stats)
         elif choice == '3':
             print("Quitting the game. Goodbye!")
             break
         else:
             print("Please select a valid option.")
 
-def user_mode():
+def user_mode(stats):
     game = MinesweeperGame()
     while True:
         game.print_board()
@@ -178,36 +184,37 @@ def user_mode():
         if flag == 'y':
             row = int(input("Enter cell row to place/remove flag: ")) - 1
             column = int(input("Enter cell col to place/remove flag: ")) - 1
-            game.place_flag(row,column)
+            game.place_flag(row, column)
         else:
             row = int(input("Enter cell row to reveal: ")) - 1
             column = int(input("Enter cell column to reveal: ")) - 1
             if not game.reveal_cell(row, column):
                 print(f"Game over. You hit a mine at ({row + 1}, {column + 1})!")
+                stats.record_loss_user()
                 break
             if game.is_victory():
                 game.print_board()
-                print("Congratulations! You won")
+                print("Congratulations! You won!\n")
+                stats.record_win_user()
                 break
 
-#We should show the the revealed board when we lose
-def ai_mode():
+def ai_mode(stats):
     game = MinesweeperGame()
-    ai = MinesweeperAI(game)
+    ai = MinesweeperAI(game, stats)
     while True:
         game.print_board()
         print("AI is playing...")
         if not ai.make_move():
             game.print_board()
-            print("AI hit a mine. Game over.")
+            print(f"AI hit a mine. Game over. Moves made: {ai.ai_moves_made}")
+            ai.stats.record_loss_ai()
             break
         if game.is_victory():
             game.print_board()
-            print("AI won the game.")
+            print(f"AI won the game. Moves made: {ai.ai_moves_made}")
+            ai.stats.record_win_ai()
             break
         print("AI finished playing.")
-
-#We should show the the revealed board when we lose
 
 if __name__ == "__main__":
     main()
