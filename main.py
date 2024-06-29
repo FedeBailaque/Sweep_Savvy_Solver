@@ -5,10 +5,9 @@ from colorama import init, Fore
 
 init(autoreset=True)
 
-
 # Main class that starts and initializes the game
 class MinesweeperGame:
-    def __init__(self, rows=10, columns=10, num_of_mines=40):
+    def __init__(self, rows=10, columns=10, num_of_mines=40):  # Default is 10x10 with ~40 mines
         self.rows = rows
         self.columns = columns
         self.num_of_mines = num_of_mines
@@ -69,16 +68,24 @@ class MinesweeperGame:
             '#': Fore.BLUE + "🔵" + Fore.RESET,  # unrevealed cell
         }
 
+        # Print column numbers on the side (becomes first column)
+        # These will be a different color than numbers that represent possible adjacent mines.
+        col_nums = "   " + "  ".join(f"{i+1:2}" for i in range(self.columns))
+        print(col_nums)
+
         for r in range(self.rows):
+            # Print row numbers on the top (becomes top row)
+            row_str = f"{r+1:2} "
             for c in range(self.columns):
                 if self.revealed[r][c]:
                     cell_value = self.board[r][c]
-                    print(color_map.get(cell_value, Fore.GREEN + str(cell_value) + Fore.RESET), end="  ")
+                    # Changes the color of the numbers inside the board.
+                    row_str += color_map.get(cell_value, Fore.GREEN + f"{cell_value:2}" + Fore.RESET) + "  "
                 elif self.flags[r][c]:
-                    print(color_map['F'], end=" ")
+                    row_str += color_map['F'] + "  "
                 else:
-                    print(color_map['#'], end=" ")
-            print()
+                    row_str += color_map['#'] + "  "
+            print(row_str)
 
     # Places mines randomly on the board depending on the board size and number of mines inputted.
     # Updates the self.mine_positions attribute of the minesweeper class
@@ -92,6 +99,7 @@ class MinesweeperGame:
 
 
 # Class to hold AI and User statistics
+# Stats being wins and losses
 class Statistics:
     def __init__(self):
         self.ai_wins = 0
@@ -162,7 +170,7 @@ class MinesweeperAI:
             self.expand_frontier(rows, columns)
 
             # Controls the delay for searching (printing out next step)
-            # time.sleep(2) # Delay is set to 2 seconds
+            #time.sleep(2) # Delay is set to 2 seconds
             return True
         return False
 
@@ -273,7 +281,7 @@ def ai_mode(stats):
             break
         if game.is_victory():
             game.print_board()
-            print(f"AI won the game. Moves made: {ai.ai_moves_made}")
+            print(f"AI won the game!!! Moves made: {ai.ai_moves_made}")
             ai.stats.record_win_ai()
             break
         print("AI finished playing.")
