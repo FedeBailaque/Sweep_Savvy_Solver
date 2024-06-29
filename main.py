@@ -26,15 +26,15 @@ class MinesweeperGame:
                     if 0 <= nr < self.rows and 0 <= nc < self.columns and self.board[nr][nc] != 'M':
                         self.board[nr][nc] += 1
 
-    # For User mode 
+    # For User mode
     def reveal_cell(self, rows, columns):
         if self.board[rows][columns] == 'M':
             return False
         self._reveal_recursive(rows, columns)
         return True
 
-    # Helper function for reveal_cell 
-    # Reveals cells until mines are encountered. 
+    # Helper function for reveal_cell
+    # Reveals cells until mines are encountered.
     def _reveal_recursive(self, rows, columns):
         if not (0 <= rows < self.rows and 0 <= columns < self.columns) or self.revealed[rows][columns]:
             return
@@ -77,14 +77,14 @@ class MinesweeperGame:
                 else:
                     print(color_map['#'],end=" ")
             print()
- 
-    # Places mines randomly on the board depending on the board size and number of mines inputted. 
+
+    # Places mines randomly on the board depending on the board size and number of mines inputted.
     # Updates the self.mine_positions attribute of the minesweeper class
     def generate_mines(self):
         while len(self.mine_positions) < self.num_of_mines:
             rows = random.randint(0, self.rows - 1)
             columns = random.randint(0, self.columns - 1)
-            if (rows, columns) not in self.mine_positions:
+            if (rows, columns) not in self.mine_positions and (rows, columns) != (0,0):
                 self.mine_positions.add((rows, columns))
                 self.board[rows][columns] = 'M'
 
@@ -93,23 +93,23 @@ class Statistics:
     def __init__(self):
         self.ai_wins = 0
         self.ai_losses = 0
-        self.user_wins = 0 
+        self.user_wins = 0
         self.user_losses = 0
 
     def record_win_user(self):
         self.user_wins += 1
-        
+
     def record_loss_user(self):
         self.user_losses += 1
-        
+
     def record_win_ai(self):
         self.ai_wins += 1
 
     def record_loss_ai(self):
         self.ai_losses += 1
 
-# AI class 
-# Initialize the AI mode as a reference to the minesweeper game class 
+# AI class
+# Initialize the AI mode as a reference to the minesweeper game class
 class MinesweeperAI:
     def __init__(self, game, stats):
         self.game = game
@@ -120,7 +120,7 @@ class MinesweeperAI:
         self.initialize_frontier()
 
     # Priority Queue for cells to be explored.
-    # Starts at 0,0 
+    # Starts at 0,0
     def initialize_frontier(self):
         heapq.heappush(self.frontier, (self.heuristic(0, 0), 0, 0))
 
@@ -131,7 +131,7 @@ class MinesweeperAI:
 
     # Manages the AI move sequence
     # Pops a cell from the frontier and reveals that cell
-    # If the cell is a mine the game ends and it expands the frontier by adding valid neighboring cells
+    # If the cell is a mine the game ends, and it expands the frontier by adding valid neighboring cells
     def make_move(self):
         ai_color_map={
            'M': Fore.RED + "⛔️" + Fore.RESET,
@@ -153,18 +153,18 @@ class MinesweeperAI:
             if not self.game.reveal_cell(rows, columns):
                 print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
                 return False  # When a mine is hit
-            
+
             # The AI picked a cell and let the viewer know what it was
             print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).\n")
             self.expand_frontier(rows, columns)
-            
-            # Controls the delay for searching (printing out next step)
-            time.sleep(2) # Delay is set to 2 seconds
-            return True
-        return False 
 
-    # Adds valid neighboring cells to the frontier 
-    # if they have not been revealed or explored 
+            # Controls the delay for searching (printing out next step)
+            # time.sleep(2) # Delay is set to 2 seconds
+            return True
+        return False
+
+    # Adds valid neighboring cells to the frontier
+    # if they have not been revealed or explored
     def expand_frontier(self, rows, columns):
         for dr in range(-1, 2):
             for dc in range(-1, 2):
