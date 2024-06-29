@@ -1,11 +1,14 @@
 import random
 import heapq
 import time
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore
+
 init(autoreset=True)
+
+
 # Main class that starts and initializes the game
 class MinesweeperGame:
-    def __init__(self, rows=10, columns=10, num_of_mines=45):
+    def __init__(self, rows=10, columns=10, num_of_mines=40):
         self.rows = rows
         self.columns = columns
         self.num_of_mines = num_of_mines
@@ -60,22 +63,22 @@ class MinesweeperGame:
 
     # Prints the entire board (user mode only)
     def print_board(self):  # Prints the back-end, true board
-        color_map ={
-            'M':Fore.RED + "⛔️"+ Fore.RESET,#red color and emoji for the mine
-             0:Fore.RESET+"⬛️"+ Fore.RESET, #color and emojir for empty mine 
-            'F': Fore.YELLOW+"🏁"+Fore.RESET,# color and emoji for flag 
-            '#':Fore.BLUE+"🔵"+ Fore.RESET,#unreveal cell 
+        color_map = {
+            'M': Fore.RED + "⛔️" + Fore.RESET,  # red color and emoji for the mine
+            0: Fore.RESET + "⬛️" + Fore.RESET,  # color and emoji for empty mine
+            'F': Fore.YELLOW + "🏁" + Fore.RESET,  # color and emoji for flag
+            '#': Fore.BLUE + "🔵" + Fore.RESET,  # unrevealed cell
         }
-      
+
         for r in range(self.rows):
             for c in range(self.columns):
                 if self.revealed[r][c]:
-                    cell_value=self.board[r][c]
-                    print(color_map.get(cell_value,Fore.GREEN+str(cell_value)+Fore.RESET),end=" ")
+                    cell_value = self.board[r][c]
+                    print(color_map.get(cell_value, Fore.GREEN + str(cell_value) + Fore.RESET), end="  ")
                 elif self.flags[r][c]:
-                    print(color_map['F'],end=" ")
+                    print(color_map['F'], end=" ")
                 else:
-                    print(color_map['#'],end=" ")
+                    print(color_map['#'], end=" ")
             print()
 
     # Places mines randomly on the board depending on the board size and number of mines inputted.
@@ -84,9 +87,10 @@ class MinesweeperGame:
         while len(self.mine_positions) < self.num_of_mines:
             rows = random.randint(0, self.rows - 1)
             columns = random.randint(0, self.columns - 1)
-            if (rows, columns) not in self.mine_positions and (rows, columns) != (0,0):
+            if (rows, columns) not in self.mine_positions and (rows, columns) != (0, 0):
                 self.mine_positions.add((rows, columns))
                 self.board[rows][columns] = 'M'
+
 
 # Class to hold AI and User statistics
 class Statistics:
@@ -107,6 +111,7 @@ class Statistics:
 
     def record_loss_ai(self):
         self.ai_losses += 1
+
 
 # AI class
 # Initialize the AI mode as a reference to the minesweeper game class
@@ -133,8 +138,8 @@ class MinesweeperAI:
     # Pops a cell from the frontier and reveals that cell
     # If the cell is a mine the game ends, and it expands the frontier by adding valid neighboring cells
     def make_move(self):
-        ai_color_map={
-           'M': Fore.RED + "⛔️" + Fore.RESET,
+        ai_color_map = {
+            'M': Fore.RED + "⛔️" + Fore.RESET,
             0: Fore.RESET + "⚪️" + Fore.RESET,
             'F': Fore.YELLOW + "🏁" + Fore.RESET,
             '#': Fore.BLUE + "🔵" + Fore.RESET
@@ -146,9 +151,8 @@ class MinesweeperAI:
 
             self.explored.add((rows, columns))
             self.ai_moves_made += 1
-            emoji_state=ai_color_map.get(self.game.board[rows][columns],str(self.game.board[rows][columns]))
-            print(f"Ai is going to reveal{emoji_state} cell at ({rows+1},{columns+1}).")
-
+            emoji_state = ai_color_map.get(self.game.board[rows][columns], str(self.game.board[rows][columns]))
+            print(f"Ai is going to reveal{emoji_state} cell at ({rows + 1},{columns + 1}).")
 
             if not self.game.reveal_cell(rows, columns):
                 print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
@@ -169,35 +173,38 @@ class MinesweeperAI:
         for dr in range(-1, 2):
             for dc in range(-1, 2):
                 nr, nc = rows + dr, columns + dc
-                if 0 <= nr < self.game.rows and 0 <= nc < self.game.columns and (nr, nc) not in self.explored and not self.game.revealed[nr][nc]:
+                if 0 <= nr < self.game.rows and 0 <= nc < self.game.columns and (nr, nc) not in self.explored and not \
+                        self.game.revealed[nr][nc]:
                     heapq.heappush(self.frontier, (self.heuristic(nr, nc), nr, nc))
+
 
 def main():
     stats = Statistics()
     print("\nWelcome to Sweep Savvy Solver\n")
     while True:
-      try:
-        print()
-        print(f"User Wins: {stats.user_wins}, User Losses: {stats.user_losses}\n")
-        print(f"AI Wins: {stats.ai_wins}, AI Losses: {stats.ai_losses}\n")
-        print("1. User mode")
-        print("2. AI mode")
-        print("3. Quit")
+        try:
+            print()
+            print(f"User Wins: {stats.user_wins}, User Losses: {stats.user_losses}\n")
+            print(f"AI Wins: {stats.ai_wins}, AI Losses: {stats.ai_losses}\n")
+            print("1. User mode")
+            print("2. AI mode")
+            print("3. Quit")
 
-        choice = input("Enter your choice: ")
+            choice = input("Enter your choice: ")
 
-        if choice == '1':
-            user_mode(stats)
-        elif choice == '2':
-            ai_mode(stats)
-        elif choice == '3':
-            print("Quitting the game. Goodbye!")
+            if choice == '1':
+                user_mode(stats)
+            elif choice == '2':
+                ai_mode(stats)
+            elif choice == '3':
+                print("Quitting the game. Goodbye!")
+                break
+            else:
+                print("Please select a valid option.")
+        except KeyboardInterrupt:
+            print("\nProgram interrupted . Quitting...")
             break
-        else:
-            print("Please select a valid option.")
-      except KeyboardInterrupt:
-        print("\nProgram intrupted . Quitting...")
-        break
+
 
 def user_mode(stats):
     game = MinesweeperGame()
@@ -205,54 +212,49 @@ def user_mode(stats):
         game.print_board()
 
         while True:
-            flag=input("Would you like to place or remove a flag ? (y/n):").lower()
-            if flag in['y', 'n']:
-                break # now its valid , exit the loop 
-            print("Invalid input . please enter 'y' or 'n'.")# add error message 
+            flag = input("Would you like to place or remove a flag? (y/n): ").lower()
+            if flag in ['y', 'n']:
+                break  # now its valid , exit the loop
+            print("Invalid input. Please enter 'y' or 'n'.")  # add error message
 
         if flag == 'y':
-            
+
             while True:
                 try:
-                    row=int(input(f"Enter cell row to place /remove flag (1 to {game.rows}):"))-1
-                    column=int(input(f"Enter cell column to place /remove flag (1 to {game.columns}):"))-1
+                    row = int(input(f"Enter cell row to place /remove flag (1 to {game.rows}): ")) - 1
+                    column = int(input(f"Enter cell column to place /remove flag (1 to {game.columns}): ")) - 1
                     if 0 <= row < game.rows and 0 <= column < game.columns:
-                        game.place_flag(row,column)
-                        break#
+                        game.place_flag(row, column)
+                        break  #
                     else:
-                        print(f"Invalid input. Please enter a row between 1 and {game.rows} and and a column between 1 and {game.columns}.")
+                        print(
+                            f"Invalid input. Please enter a row between 1 and {game.rows} and and a column between 1 "
+                            f"and {game.columns}.")
                 except ValueError:
                     print("Invalid input. Please enter numeric values ")
         else:
             while True:
                 try:
 
-                    row=int(input(f"Enter cell row to reveal (1 to {game.rows}):"))-1
-                    column=int(input(f"Enter cell column to reveal (1 to {game.columns}):"))-1
+                    row = int(input(f"Enter cell row to reveal (1 to {game.rows}): ")) - 1
+                    column = int(input(f"Enter cell column to reveal (1 to {game.columns}): ")) - 1
                     if 0 <= row < game.rows and 0 <= column < game.columns:
-                        if not game.reveal_cell(row,column):
-
-                           print(f"Gmae over . You hit a mine at ({row +1}, {column +1})!")
-                           stats.record_loss_user()
-                           return
+                        if not game.reveal_cell(row, column):
+                            print(f"Game over. You hit a mine at ({row + 1}, {column + 1})!")
+                            stats.record_loss_user()
+                            return
                         if game.is_victory():
                             game.print_board()
-                            print("Congratulations! You won !\n")
+                            print("Congratulations! You won!\n")
                             stats.record_win_user()
                             return
                         break
                     else:
-                        print(f"Inavlid input .Please enter a row between 1 and {game.rows} and a column betwwen 1 and {game.columns}.")
+                        print(
+                            f"Invalid input. Please enter a row between 1 and {game.rows} and a column between 1 and {game.columns}.")
                 except ValueError:
-                    print("Invalid input . Please enter numeric values")
+                    print("Invalid input. Please enter numeric values")
 
-
-    
-
-            
-        
-
- 
 
 def ai_mode(stats):
     game = MinesweeperGame()
@@ -272,7 +274,6 @@ def ai_mode(stats):
             break
         print("AI finished playing.")
 
+
 if __name__ == "__main__":
     main()
-
-
