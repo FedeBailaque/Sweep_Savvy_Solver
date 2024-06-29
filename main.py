@@ -135,7 +135,7 @@ class MinesweeperAI:
     def make_move(self):
         ai_color_map={
            'M': Fore.RED + "⛔️" + Fore.RESET,
-            0: Fore.RESET + "⬛️" + Fore.RESET,
+            0: Fore.RESET + "⚪️" + Fore.RESET,
             'F': Fore.YELLOW + "🏁" + Fore.RESET,
             '#': Fore.BLUE + "🔵" + Fore.RESET
         }
