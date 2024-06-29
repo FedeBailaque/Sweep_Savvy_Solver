@@ -1,6 +1,8 @@
 import random
 import heapq
 import time
+import collections
+from queue import PriorityQueue
 
 
 class MinesweeperBoard:
@@ -22,7 +24,7 @@ class MinesweeperBoard:
 
         # Places mines and marks them with an 'M'
         mines_placed = 0
-        while mines_placed < self.num_of_mines:
+        while mines_placed < self.num_of_mines-1:
             rows = random.randint(0, self.rows - 1)
             cols = random.randint(0, self.columns - 1)
             if (rows, cols) not in self.mine_positions:
@@ -104,16 +106,15 @@ class MinesweeperBoard:
             print(str(idx + 1).rjust(col_width) + " " + ' '.join(str(cell).rjust(col_width) for cell in row))
 
     def play(self):
-        print("Good luck!\n")
+        print("\nGood luck!\n")
 
         while not self.game_end:
             self.print_visible_board()
             print("\n")
-            print("Choose which cell to reveal next or place a flag.")
+            # print("Choose which cell to reveal next or place a flag.")
             try:
-                print("\n")
-                action = input("Would you like to place or remove a flag? (y/n): ").lower()
-                if action == 'y':
+                action = input("Would you like to reveal or flag a cell?\n r = reveal & f = flag\n").lower()
+                if action == 'f':
                     rows = int(input("Enter cell row to place flag: "))
                     cols = int(input("Enter cell col to place flag: "))
                     rows -= 1
@@ -121,18 +122,21 @@ class MinesweeperBoard:
                     if 0 <= rows < self.rows and 0 <= cols < self.columns:
                         self.flag_cell(rows, cols)
                     else:
-                        print("Invalid input, please enter numbers within the board limit.")
+                        print("Invalid input, please enter numbers within the board limit.\n")
                 else:
-                    rows = int(input("Enter cell row to reveal: "))
-                    cols = int(input("Enter cell col to reveal: "))
-                    rows -= 1
-                    cols -= 1
-                    if 0 <= rows < self.rows and 0 <= cols < self.columns:
-                        self.reveal_cell(rows, cols)
+                    if action == 'r':
+                        rows = int(input("Enter cell row to reveal: "))
+                        cols = int(input("Enter cell col to reveal: "))
+                        rows -= 1
+                        cols -= 1
+                        if 0 <= rows < self.rows and 0 <= cols < self.columns:
+                            self.reveal_cell(rows, cols)
+                        else:
+                            print("Invalid input, please enter numbers within the board limit.\n")
                     else:
-                        print("Invalid input, please enter numbers within the board limit.")
+                        print("Invalid input. \n")
             except ValueError:
-                print("Invalid input, please enter integers.")
+                print("Invalid input. \n")
 
         print("Game over.\n")
         self.print_board()
@@ -154,65 +158,99 @@ class MinesweeperBoard:
             print("\nYou have placed some flags incorrectly. Better luck next time!\n")
 
         self.game_end = True
+
+
     def play_ai(self):
+        iteration = 0
+        print("\n AI is playing...\n")
 
-        print("AI is playing...\n")
-        # start_row = random.randint(0, self.rows - 1)
-        # start_col = random.randint(0, self.columns - 1)
+        #pick where to begin randomly
+        print("Picking a starting position...\n")
+        random_row = random.randint(0, self.rows - 1)
+        random_col = random.randint(0, self.columns - 1)
 
-        start_row = 0
-        start_col = 0
+        current_row = random_row
+        current_col = random_col
 
-        self.dfs(start_row, start_col)
 
-        # AI chooses a row and col to start at.
-        # DFS will make a decision for what the AI will do next.
-        #   Create valid checker, to make sure AI picks a valid coord
-        #   is_valid_cell()
+        #first pass at revealing current position to see if we lose or we continue
+        print("Revealing initial position")
+        self.reveal_cell(current_row, current_col)
 
-        # You run into a mine
-        # Or you run into a cell that has already been flagged
-        for rows in range(self.rows):
-            for cols in range(self.columns):
-                if not self.game_end:
-                    self.reveal_cell(rows, cols)
-                else:
-                    break
-            if self.game_end:
-                break
+        while not self.game_end:
+            iteration += 1
+            print("Iteration # " + str(iteration) + "----------------\n")
+            print("The AI agent's view of the board: \n")
+            self.print_visible_board()
 
-        
-        print("AI has finished playing")
+            # if current is 0, reveal all neighbors
+            print("Log: Current cell is " + self.visible_board[current_row][current_col] + "\n")
+
+            if (self.visible_board[current_row][current_col] == '0'):
+                print("Log: Current cell is 0, reveal all neighbors\n")
+                directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+                for dr, dc in directions:
+                    r = current_row + dr
+                    c = current_col + dc
+                    if ((0 <= r <= self.rows) and (0 <= c <= self.columns)):
+                        self.reveal_cell(r, c)
+                print("Log: All neighbors revealed\n")
+                #move to next position
+                for dr, dc in directions:
+                    r = current_row + dr
+                    c = current_col + dc
+                    if ((0 <= r <= self.rows) and (0 <= c <= self.columns)):
+                        current_row = r
+                        current_col = c
+                        break
+                
+                time.sleep(2)
+
+                
+
+
+            # if action == 'f':
+            #     rows = int(input("Enter cell row to place flag: "))
+            #     cols = int(input("Enter cell col to place flag: "))
+            #     rows -= 1
+            #     cols -= 1
+            #     if 0 <= rows < self.rows and 0 <= cols < self.columns:
+            #         self.flag_cell(rows, cols)
+            #     else:
+            #         print("Invalid input, please enter numbers within the board limit.\n")
+            # else:
+            #     if action == 'r':
+            #         rows = int(input("Enter cell row to reveal: "))
+            #         cols = int(input("Enter cell col to reveal: "))
+            #         rows -= 1
+            #         cols -= 1
+            #         if 0 <= rows < self.rows and 0 <= cols < self.columns:
+            #             self.reveal_cell(rows, cols)
+            #         else:
+            #             print("Invalid input, please enter numbers within the board limit.\n")
+            #     else:
+            #         print("Invalid input. \n")
+            
+            
+            time.sleep(2)
+
+        print("Game over.\n")
         self.print_board()
 
+        
 
-       # pass
- #   def ai_play(self):
- #       print("AI is playing...\n")
-#
- #       # start_row = random.randint(0, self.rows - 1)
- #       # start_col = random.randint(0, self.columns - 1)
-#
- #       start_row = 0
- #       start_col = 0
-#
- #       self.dfs(start_row, start_col)
-#
- #       print("Game over\n")
- #       self.print_board()
-    def dfs(self, row, col):
-        if not self.is_valid_cell(row, col):
-            return
-    def is_valid_cell(self, row, col):
-        return 0 <= row < self.rows and 0 <= col < self.columns and self.visible_board[row][col] == '#'
+
+
+
 
 
 
 # We execute the program. We can select the number of rows, columns, and mines
 if __name__ == "__main__":
-    rows = 10
-    cols = 10
-    num_mines = 20
+    rows = 9
+    cols = 9
+    num_mines = 0
+
 
     while True:
         print("\nWelcome to Sweep Savvy Solver - Player Edition.")
