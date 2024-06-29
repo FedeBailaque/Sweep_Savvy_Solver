@@ -65,7 +65,6 @@ class MinesweeperGame:
     def print_board(self):  # Prints the back-end, true board
         color_map = {
             'M': Fore.RED + "⛔️" + Fore.RESET,  # red color and emoji for the mine
-            0: Fore.RESET + "⬛️" + Fore.RESET,  # color and emoji for empty mine
             'F': Fore.YELLOW + "🏁" + Fore.RESET,  # color and emoji for flag
             '#': Fore.BLUE + "🔵" + Fore.RESET,  # unrevealed cell
         }
@@ -152,7 +151,7 @@ class MinesweeperAI:
             self.explored.add((rows, columns))
             self.ai_moves_made += 1
             emoji_state = ai_color_map.get(self.game.board[rows][columns], str(self.game.board[rows][columns]))
-            print(f"Ai is going to reveal{emoji_state} cell at ({rows + 1},{columns + 1}).")
+            print(f"Ai is going to reveal cell {emoji_state} at ({rows + 1},{columns + 1}).")
 
             if not self.game.reveal_cell(rows, columns):
                 print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
@@ -195,7 +194,11 @@ def main():
             if choice == '1':
                 user_mode(stats)
             elif choice == '2':
+                st = time.time() * 1000
                 ai_mode(stats)
+                et = time.time() * 1000
+                elapsed_time = et - st
+                print("Execution time: ", elapsed_time, "milliseconds")
             elif choice == '3':
                 print("Quitting the game. Goodbye!")
                 break
@@ -251,7 +254,8 @@ def user_mode(stats):
                         break
                     else:
                         print(
-                            f"Invalid input. Please enter a row between 1 and {game.rows} and a column between 1 and {game.columns}.")
+                            f"Invalid input. Please enter a row between 1 and {game.rows} and a column"
+                            f" between 1 and {game.columns}.")
                 except ValueError:
                     print("Invalid input. Please enter numeric values")
 
