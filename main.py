@@ -2,9 +2,6 @@ import random
 import heapq
 import time
 from colorama import init, Fore
-import itertools
-import threading
-import sys
 
 init(autoreset=True)
 
@@ -163,14 +160,14 @@ class MinesweeperAI:
             self.explored.add((rows, columns))
             self.ai_moves_made += 1
             emoji_state = ai_color_map.get(self.game.board[rows][columns], str(self.game.board[rows][columns]))
-            print(f"AI is going to reveal cell {emoji_state} at ({rows + 1},{columns + 1}).")
+            print(f"Ai is going to reveal cell {emoji_state} at ({rows + 1},{columns + 1}).")
 
             if not self.game.reveal_cell(rows, columns):
-                print(f"AI hit a mine at ({rows + 1}, {columns + 1})!\n")
+                print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
                 return False  # When a mine is hit
 
             # The AI picked a cell and let the viewer know what it was
-            print(f"AI revealed cell at ({rows + 1}, {columns + 1}).\n")
+            print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).\n")
             self.expand_frontier(rows, columns)
 
             # Controls the delay for searching (printing out next step)
@@ -272,31 +269,12 @@ def user_mode(stats):
                     print("Invalid input. Please enter numeric values")
 
 
-done =False 
-
-def animation():
-    for c in itertools.cycle(['🕒','🎲','🕔','🕕','🕖']):
-        if done:
-            break
-        sys.stdout.write('\rThanks For Playing  '+c)
-        sys.stdout.flush()
-        time.sleep(0.1)
-    sys.stdout.write('\rDone!     \n')
-
-
 def ai_mode(stats):
-    global done
     game = MinesweeperGame()
     ai = MinesweeperAI(game, stats)
     while True:
         game.print_board()
-        done=False
-        t=threading.Thread(target=animation)
-        t.start()
         print("AI is playing...")
-        ai_made_move = ai.make_move()
-        done=True
-        t.join()
         if not ai.make_move():
             game.print_board()
             print(f"AI hit a mine. Game over. Moves made: {ai.ai_moves_made}")
@@ -308,14 +286,7 @@ def ai_mode(stats):
             ai.stats.record_win_ai()
             break
         print("AI finished playing.")
-    replay=input("Would you like to play this game one more time ?(Y/N):  ").strip().lower()
-    if replay == 'y':
-        main()
-    else:
-        print("Thanks for Playing , Goddbye")
-      
 
 
 if __name__ == "__main__":
     main()
-

@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Fixed small grammatical typos" />
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Fixed small grammatical typos">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +26,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
@@ -186,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719957294345</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed small grammatical typos">
+      <option name="closed" value="true" />
+      <created>1719963928268</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719963928268</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
