@@ -5,6 +5,7 @@ from colorama import init, Fore
 
 init(autoreset=True)
 
+
 # Main class that starts and initializes the game
 class MinesweeperGame:
     def __init__(self, rows=10, columns=10, num_of_mines=40):  # Default is 10x10 with ~40 mines
@@ -70,12 +71,12 @@ class MinesweeperGame:
 
         # Print column numbers on the side (becomes first column)
         # These will be a different color than numbers that represent possible adjacent mines.
-        col_nums = "   " + "  ".join(f"{i+1:2}" for i in range(self.columns))
+        col_nums = "   " + "  ".join(f"{i + 1:2}" for i in range(self.columns))
         print(col_nums)
 
         for r in range(self.rows):
             # Print row numbers on the top (becomes top row)
-            row_str = f"{r+1:2} "
+            row_str = f"{r + 1:2} "
             for c in range(self.columns):
                 if self.revealed[r][c]:
                     cell_value = self.board[r][c]
@@ -170,7 +171,7 @@ class MinesweeperAI:
             self.expand_frontier(rows, columns)
 
             # Controls the delay for searching (printing out next step)
-            #time.sleep(2) # Delay is set to 2 seconds
+            time.sleep(2)  # Delay is set to 2 seconds
             return True
         return False
 
@@ -281,7 +282,7 @@ def ai_mode(stats):
             break
         if game.is_victory():
             game.print_board()
-            print(f"AI won the game!!! Moves made: {ai.ai_moves_made}")
+            print(f"AI won the game! Moves made: {ai.ai_moves_made}")
             ai.stats.record_win_ai()
             break
         print("AI finished playing.")
