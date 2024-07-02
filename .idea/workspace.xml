@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Got rid of picky warnings">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="9d2d27ab-3260-44b3-8d86-8027a82e3b16" name="Changes" comment="Fixed small grammatical typos" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -181,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719956538889</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed small grammatical typos">
+      <option name="closed" value="true" />
+      <created>1719957294345</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719957294345</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,6 +211,7 @@
     <MESSAGE value="Made the printing of the table a lot more clean. Fixed grammatical errors. Deleted extra comments we don't need" />
     <MESSAGE value="Added run time for when AI play, made some minor esthetic improvements" />
     <MESSAGE value="Got rid of picky warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got rid of picky warnings" />
+    <MESSAGE value="Fixed small grammatical typos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed small grammatical typos" />
   </component>
 </project>
