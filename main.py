@@ -160,14 +160,14 @@ class MinesweeperAI:
             self.explored.add((rows, columns))
             self.ai_moves_made += 1
             emoji_state = ai_color_map.get(self.game.board[rows][columns], str(self.game.board[rows][columns]))
-            print(f"Ai is going to reveal cell {emoji_state} at ({rows + 1},{columns + 1}).")
+            print(f"AI is going to reveal cell {emoji_state} at ({rows + 1},{columns + 1}).")
 
             if not self.game.reveal_cell(rows, columns):
-                print(f"Ai hit a mine at ({rows + 1}, {columns + 1})!\n")
+                print(f"AI hit a mine at ({rows + 1}, {columns + 1})!\n")
                 return False  # When a mine is hit
 
             # The AI picked a cell and let the viewer know what it was
-            print(f"Ai revealed cell at ({rows + 1}, {columns + 1}).\n")
+            print(f"AI revealed cell at ({rows + 1}, {columns + 1}).\n")
             self.expand_frontier(rows, columns)
 
             # Controls the delay for searching (printing out next step)
