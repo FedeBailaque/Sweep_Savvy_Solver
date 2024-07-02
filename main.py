@@ -2,6 +2,9 @@ import random
 import heapq
 import time
 from colorama import init, Fore
+import itertools
+import threading
+import sys
 
 init(autoreset=True)
 
@@ -268,12 +271,31 @@ def user_mode(stats):
                     print("Invalid input. Please enter numeric values")
 
 
+done =False 
+
+def animation():
+    for c in itertools.cycle(['🕒','🎲','🕔','🕕','🕖']):
+        if done:
+            break
+        sys.stdout.write('\rThanks For Playing  '+c)
+        sys.stdout.flush()
+        time.sleep(0.1)
+    sys.stdout.write('\rDone!     \n')
+
+
 def ai_mode(stats):
+    global done
     game = MinesweeperGame()
     ai = MinesweeperAI(game, stats)
     while True:
         game.print_board()
+        done=False
+        t=threading.Thread(target=animation)
+        t.start()
         print("AI is playing...")
+        ai_made_move = ai.make_move()
+        done=True
+        t.join()
         if not ai.make_move():
             game.print_board()
             print(f"AI hit a mine. Game over. Moves made: {ai.ai_moves_made}")
@@ -285,7 +307,14 @@ def ai_mode(stats):
             ai.stats.record_win_ai()
             break
         print("AI finished playing.")
+    replay=input("Would you like to play this game one more time ?(Y/N):  ").strip().lower()
+    if replay == 'y':
+        main()
+    else:
+        print("Thanks for Playing , Goddbye")
+      
 
 
 if __name__ == "__main__":
     main()
+
